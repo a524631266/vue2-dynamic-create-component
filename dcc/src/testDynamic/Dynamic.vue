@@ -27,6 +27,9 @@
                 <li class="nav-item"><a class="nav-link" :class="currentView===second?'active':''" href="javascript:void(0);" @click="toggleTabs(second);">{{second}}</a></li>
                 <li class="nav-item"><a class="nav-link" :class="currentView===third?'active':''" href="javascript:void(0);" @click="toggleTabs(third);">{{third}}</a></li>
             </ul>
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item"><a class="nav-link" :class="currentView===third?'active':''" href="javascript:void(0);" @click="pop();">删除最后一个元素{{componetslist[componetslist.length-1]}}</a></li>
+            </ul>
         </div>
         <div class="card-body bg-light">
             <h6 class="text-primary">1.切换区</h6>
@@ -36,9 +39,17 @@
         </div>
         <div class="card-body bg-primary">
             <h6 class="text-light">2.组件动态添加区</h6>
-            <anytags v-for="(value,index) in componetslist" :is="value" :key="index" :name="value" keep-alive>
+            <anytags ref="index" v-for="(value,index) in componetslist" :is="value" :key="index" :name="value" keep-alive>
             </anytags>
         </div>
+        <div class="card-body bg-primary" id="manual2">
+            <h6 class="text-light">3.组件动态manual2删除区</h6>
+
+        </div>
+        <div class="card-body bg-primary" id="manual">
+            <h6 class="text-light">3.组件动态manual1删除区</h6>
+        </div>
+
     </div>
 </div>
 </template>
@@ -63,11 +74,26 @@ export default class HighchartFactory extends Vue {
     private first = "first"; // 导航栏文本1
     private second = "Second"; // 导航栏文本2
     private third = "Third";
+    private deletecomponents: any[] = [];
     private componetslist: string[] = ["first","Second", "Third"];
     @Emit()
     private toggleTabs(tabText: string) {
         this.currentView = tabText;
         this.componetslist.push(tabText);
+    }
+    @Emit()
+    private pop() {
+
+
+        const deletename: any = (this.$refs.index as any)[(((this.$refs.index as any).length) as any) - 1];
+        // tslint:disable-next-line:no-unused-expression
+        console.log(this.componetslist,deletename);
+        // 页面有两个id 只能挂载到最后append的元素之上
+        (document.getElementById('manual') as any).appendChild(deletename.$el as any);
+        (document.getElementById('manual2') as any).appendChild(deletename.$el as any);
+        // tslint:disable-next-line:no-unused-expression
+        // this.deletecomponents.push(this.componetslist.pop());
+
     }
 }
 </script>
