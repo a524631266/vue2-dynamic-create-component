@@ -1,0 +1,19 @@
+<template>
+  <div class="text-light bg-dark border-danger">
+    [{{JSON.stringify(new Date()).replace("T"," ").replace('"',"").replace(/\..*?$/g,"")}}] 组件2-name:{{name}}
+  </div>
+</template>
+
+<script lang='ts'>
+import { Component, Vue, Prop, Emit, Watch  } from 'vue-property-decorator';
+
+@Component
+export default class Second extends Vue {
+    @Prop() private name!: string;
+    // private name = "嘿嘿";
+}
+</script>
+
+<style lang='scss' scoped>
+
+</style>

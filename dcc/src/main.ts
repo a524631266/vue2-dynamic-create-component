@@ -3,11 +3,15 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
-
+import Dynamic from './testDynamic/Dynamic.vue';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
+// import 'font-awesome/css/font-awesome.min.css';
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: (h) => h(Dynamic),
 }).$mount('#app');
