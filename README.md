@@ -1,7 +1,7 @@
 
  vue create dcc
 
-
+```
 Vue CLI v3.2.1
 ? Please pick a preset: Manually select features
 ? Check the features needed for your project: Babel, TS, PWA, Router, Vuex, CSS Pre-processors, Linter, Unit, E2E
@@ -16,3 +16,14 @@ Vue CLI v3.2.1
 ? Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? In package.json
 ? Save this as a preset for future projects? Yes
 ? Save preset as: 
+```
+step
+```
+    $ cd dcc
+
+    $ npm install
+
+    $ npm run serve
+
+```
+
