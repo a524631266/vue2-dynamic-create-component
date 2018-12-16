@@ -66,7 +66,7 @@ import Third from '@/testDynamic/Third.vue';
         Third
     },
 })
-export default class HighchartFactory extends Vue {
+export default class Dynamic extends Vue {
 
     @Prop({default: false }) public initshow!: boolean;
     private name = 111;
@@ -74,7 +74,7 @@ export default class HighchartFactory extends Vue {
     private first = "first"; // 导航栏文本1
     private second = "Second"; // 导航栏文本2
     private third = "Third";
-    private deletecomponents: any[] = [];
+    private deletecomponents: Set<any> = new Set();
     private componetslist: string[] = ["first","Second", "Third"];
     @Emit()
     private toggleTabs(tabText: string) {
@@ -83,17 +83,28 @@ export default class HighchartFactory extends Vue {
     }
     @Emit()
     private pop() {
-
-
-        const deletename: any = (this.$refs.index as any)[(((this.$refs.index as any).length) as any) - 1];
+        const totallen =  (this.$refs.index as any).length-1;
+        // tslint:disable-next-line:variable-name
+        let delete_uid: number = 0;
+        let deleteVue = null;
+        for (let i = totallen;i >=0 ;i--) {
+            console.log("111");
+            const nowid = (this.$refs.index as any)[i]._uid;
+            if(!this.deletecomponents.has(nowid)) {
+                delete_uid = nowid;
+                deleteVue = (this.$refs.index as any)[i];
+                break;
+            }
+        }
         // tslint:disable-next-line:no-unused-expression
-        console.log(this.componetslist,deletename);
+        // 更新uid
+        this.deletecomponents.add(delete_uid);
+        console.log(this.deletecomponents,delete_uid);
         // 页面有两个id 只能挂载到最后append的元素之上
-        (document.getElementById('manual') as any).appendChild(deletename.$el as any);
-        (document.getElementById('manual2') as any).appendChild(deletename.$el as any);
+        (document.getElementById('manual') as any).appendChild(deleteVue.$el as any);
+        (document.getElementById('manual2') as any).appendChild(deleteVue.$el as any);
         // tslint:disable-next-line:no-unused-expression
         // this.deletecomponents.push(this.componetslist.pop());
-
     }
 }
 </script>
