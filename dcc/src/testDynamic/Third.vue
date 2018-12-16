@@ -1,6 +1,8 @@
 <template>
-  <div class="text-dark bg-info border-success">
-    [{{JSON.stringify(new Date()).replace("T"," ").replace('"',"").replace(/\..*?$/g,"")}}] 组件3-name:{{name}}
+  <div class="text-dark bg-info border-success candrag" draggable="true">
+    <div>[{{JSON.stringify(new Date()).replace("T"," ").replace('"',"").replace(/\..*?$/g,"")}}] 组件2</div>
+    <p>props属性name值:<span style="color:white;background:blue">[{{name}}]</span>
+    </p>
   </div>
 </template>
 

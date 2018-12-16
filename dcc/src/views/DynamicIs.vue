@@ -18,29 +18,37 @@
                     利用vue中的v-for语法糖特性，通过监听当前组件内部的组件名列表对象。当触发按钮（添加组件名）的时候，在列表中添加指定的名字就会动态添加组件
                 </textarea>
             </div>
+
         </div>
     </div>
     <div class="col card bg-dark">
         <div class="card-header">
-            <ul class="nav nav-pills card-header-pills">
-                <li class="nav-item"><a class="nav-link" :class="currentView===first?'active':''" href="javascript:void(0);" @click="toggleTabs(first);">{{first}}</a></li>
-                <li class="nav-item"><a class="nav-link" :class="currentView===second?'active':''" href="javascript:void(0);" @click="toggleTabs(second);">{{second}}</a></li>
-                <li class="nav-item"><a class="nav-link" :class="currentView===third?'active':''" href="javascript:void(0);" @click="toggleTabs(third);">{{third}}</a></li>
-            </ul>
+            <div>
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item"><a class="nav-link" :class="currentView===first?'active':''" href="javascript:void(0);" @click="toggleTabs(first);">{{first}}</a></li>
+                    <li class="nav-item"><a class="nav-link" :class="currentView===second?'active':''" href="javascript:void(0);" @click="toggleTabs(second);">{{second}}</a></li>
+                    <li class="nav-item"><a class="nav-link" :class="currentView===third?'active':''" href="javascript:void(0);" @click="toggleTabs(third);">{{third}}</a></li>
+                </ul>
+            </div>
             <ul class="nav nav-pills card-header-pills">
                 <li class="nav-item"><a class="nav-link" :class="currentView===third?'active':''" href="javascript:void(0);" @click="pop();">删除最后一个元素{{componetslist[componetslist.length-1]}}</a></li>
             </ul>
+            <div class="input-group">
+                <input class="input-group-append form-control" type="text" v-model="ownnames[first]" placeholder="firstname"/>
+                <input class=" form-control" type="text" v-model="ownnames[second]" placeholder="secondname"/>
+                <input class="input-group-append form-control" type="text" v-model="ownnames[third]" placeholder="thirdname"/>
+            </div>
         </div>
         <div class="card-body bg-light">
             <h6 class="text-primary">1.切换区</h6>
             <keep-alive>
-            <div :is="currentView" :name="currentView"></div>
+            <div :is="currentView" :name="ownnames[currentView]"></div>
             </keep-alive>
         </div>
         <div class="card-body bg-primary">
             <h6 class="text-light">2.组件动态添加区</h6>
-            <anytags ref="index" v-for="(value,index) in componetslist" :is="value" :key="index" :name="value" keep-alive>
-            </anytags>
+            <component ref="index" v-for="(value,index) in componetslist" :is="value" :key="index" :name="ownnames[value]">
+            </component>
         </div>
         <div class="card-body bg-primary" id="manual2">
             <h6 class="text-light">3.组件动态manual2删除区</h6>
@@ -50,6 +58,7 @@
             <h6 class="text-light">3.组件动态manual1删除区</h6>
         </div>
 
+        
     </div>
 </div>
 </template>
@@ -76,6 +85,7 @@ export default class Dynamic extends Vue {
     private third = "Third";
     private deletecomponents: Set<any> = new Set();
     private componetslist: string[] = ["first","Second", "Third"];
+    private ownnames = {[this.first]: "name1",[this.second]: "name2",[this.third]: "name3"};
     @Emit()
     private toggleTabs(tabText: string) {
         this.currentView = tabText;
@@ -103,8 +113,10 @@ export default class Dynamic extends Vue {
         // 页面有两个id 只能挂载到最后append的元素之上
         (document.getElementById('manual') as any).appendChild(deleteVue.$el as any);
         (document.getElementById('manual2') as any).appendChild(deleteVue.$el as any);
-        // tslint:disable-next-line:no-unused-expression
-        // this.deletecomponents.push(this.componetslist.pop());
+    }
+    @Emit()
+    private changename() {
+        this.name = 444;
     }
 }
 </script>

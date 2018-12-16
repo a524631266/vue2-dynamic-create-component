@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav header">
+      <router-link to="/is">:is特性</router-link> |
+      <router-link to="/extend">:Vue.extend</router-link>
     </div>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+    
   </div>
 </template>
 
@@ -25,5 +28,8 @@
       color: #42b983;
     }
   }
+}
+.router-link-active{
+  color: #fd7e14
 }
 </style>

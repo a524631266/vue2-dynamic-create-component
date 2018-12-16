@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-
+import Dynamic from '@/views/DynamicIs.vue';
+// import DynamicExtend from '@/views/DynamicExtend.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -11,15 +12,20 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Dynamic,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/is',
+      name: 'is',
+      component: Dynamic,
+    },
+    {
+      path: '/extend',
+      name: 'extend',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/DynamicExtend.vue'),
     },
   ],
 });
